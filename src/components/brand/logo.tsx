@@ -63,20 +63,22 @@ type LogoProps = {
   iconSize?: number;
   showText?: boolean;
   animated?: boolean;
+  // Use on top of dark photos, where the theme text color would be unreadable.
+  onDark?: boolean;
 };
-
-const BRAND_PARTS = [
-  { text: "Pizza", className: "text-primary" },
-  { text: "Hub", className: "text-foreground" },
-];
 
 export function Logo({
   className,
   iconSize = 36,
   showText = true,
   animated = true,
+  onDark = false,
 }: LogoProps) {
   let index = 0;
+  const brandParts = [
+    { text: "Pizza", className: "text-primary" },
+    { text: "Hub", className: onDark ? "text-white" : "text-foreground" },
+  ];
 
   return (
     <span
@@ -89,7 +91,7 @@ export function Logo({
           aria-hidden="true"
           className="text-2xl leading-none font-extrabold tracking-tight"
         >
-          {BRAND_PARTS.map((part) => (
+          {brandParts.map((part) => (
             <span key={part.text} className={part.className}>
               {part.text.split("").map((letter) => {
                 const i = index++;
