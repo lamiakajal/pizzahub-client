@@ -28,7 +28,7 @@ export function Footer() {
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div className="space-y-4">
           <Link href="/" aria-label="PizzaHub home" className="inline-block">
-            <Logo animated={false} />
+            <Logo />
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
             Discover local pizza shops, browse their menus and get hot, fresh
@@ -71,7 +71,10 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail className="size-4 shrink-0 text-primary" />
-              <a href="mailto:support@pizzahub.com" className="hover:text-primary">
+              <a
+                href="mailto:support@pizzahub.com"
+                className="hover:text-primary"
+              >
                 support@pizzahub.com
               </a>
             </li>

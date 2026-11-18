@@ -1,3 +1,4 @@
+"use client";
 import { THEME_STORAGE_KEY } from "@/lib/use-theme";
 
 // Runs before first paint: use the saved choice, otherwise follow the OS setting.
