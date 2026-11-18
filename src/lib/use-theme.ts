@@ -1,9 +1,7 @@
 "use client";
+
 import { useSyncExternalStore } from "react";
-
-export type Theme = "light" | "dark";
-
-export const THEME_STORAGE_KEY = "pizzahub-theme";
+import type { Theme } from "@/lib/theme";
 
 function subscribe(callback: () => void) {
   const observer = new MutationObserver(callback);

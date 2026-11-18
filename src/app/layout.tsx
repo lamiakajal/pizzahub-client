@@ -34,7 +34,10 @@ export default function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col font-sans"
+      >
         {children}
         <Toaster richColors position="top-right" />
       </body>
