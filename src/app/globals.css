@@ -1,29 +1,128 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* Dark mode is driven by data-theme="dark" on <html>. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * PizzaHub design system ("Blend C")
+ *
+ * Brand rules:
+ * - Red (--primary) is brand identity only: logo, prices, links, badges, active nav item.
+ * - Orange (--accent) is for actions only: Order Now, Upgrade, primary buttons.
+ * - Text on orange is always dark (--on-accent), never white.
+ * - Green (--success) is for success states and the veg badge.
+ * - Cards use --surface, borders use --border. Radius 12-16px.
+ *
+ * Never hardcode hex values in components. Use the Tailwind tokens below.
+ */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --background: #fff9f3;
+  --surface: #ffffff;
+  --surface-2: #fbf1e6;
+  --border: #eadfd3;
+  --text: #292321;
+  --muted: #78716c;
+  --primary: #c62828;
+  --on-primary: #ffffff;
+  --accent: #f28c28;
+  --on-accent: #1f1a18;
+  --success: #2e7d32;
+  --warning: #f59e0b;
+  --error: #dc2626;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #141211;
+  --surface: #1f1b19;
+  --surface-2: #292321;
+  --border: #302a27;
+  --text: #f8f1e9;
+  --muted: #a8a29e;
+  --primary: #ef5350;
+  --on-primary: #141211;
+  --accent: #ff9f1c;
+  --on-accent: #141211;
+  --success: #4caf50;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+/* ShadCN aliases, resolved from the design tokens above. */
+:root {
+  --radius: 0.875rem;
+
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary-foreground: var(--on-primary);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted-bg: var(--surface-2);
+  --destructive: var(--error);
+  --input: var(--border);
+  --ring: var(--primary);
+
+  --chart-1: var(--primary);
+  --chart-2: var(--accent);
+  --chart-3: var(--warning);
+  --chart-4: var(--success);
+  --chart-5: var(--muted);
+
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--on-primary);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--primary);
+}
 
 @theme inline {
   --font-sans: var(--font-poppins);
 
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--text);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--on-primary);
+  --color-on-primary: var(--on-primary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Orange action color: bg-action text-on-action */
+  --color-action: var(--accent);
+  --color-on-action: var(--on-accent);
+
+  /*
+   * ShadCN uses "accent" and "muted" for neutral hover and subtle surfaces,
+   * so those two names map to neutral tokens here. The orange action color
+   * is exposed as "action" instead.
+   */
+  --color-accent: var(--surface-2);
+  --color-accent-foreground: var(--text);
+  --color-muted: var(--muted-bg);
+  --color-muted-foreground: var(--muted);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -46,86 +145,46 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* PizzaHub palette: warm reds, oranges and cream backgrounds. */
-:root {
-  --radius: 0.75rem;
-
-  --background: #fff8f0;
-  --foreground: #2b1a12;
-  --card: #ffffff;
-  --card-foreground: #2b1a12;
-  --popover: #ffffff;
-  --popover-foreground: #2b1a12;
-  --primary: #d62828;
-  --primary-foreground: #fff8f0;
-  --secondary: #fde8d3;
-  --secondary-foreground: #2b1a12;
-  --muted: #f6ebdd;
-  --muted-foreground: #7a5c4d;
-  --accent: #f77f00;
-  --accent-foreground: #ffffff;
-  --destructive: #b91c1c;
-  --border: #ebd9c6;
-  --input: #ebd9c6;
-  --ring: #d62828;
-
-  --chart-1: #d62828;
-  --chart-2: #f77f00;
-  --chart-3: #fcbf49;
-  --chart-4: #2a9d8f;
-  --chart-5: #6a994e;
-
-  --sidebar: #fffaf4;
-  --sidebar-foreground: #2b1a12;
-  --sidebar-primary: #d62828;
-  --sidebar-primary-foreground: #fff8f0;
-  --sidebar-accent: #fde8d3;
-  --sidebar-accent-foreground: #2b1a12;
-  --sidebar-border: #ebd9c6;
-  --sidebar-ring: #d62828;
-}
-
-.dark {
-  --background: #1c110c;
-  --foreground: #fbeee0;
-  --card: #2a1a12;
-  --card-foreground: #fbeee0;
-  --popover: #2a1a12;
-  --popover-foreground: #fbeee0;
-  --primary: #ef4444;
-  --primary-foreground: #1c110c;
-  --secondary: #3a2418;
-  --secondary-foreground: #fbeee0;
-  --muted: #34201a;
-  --muted-foreground: #c9a994;
-  --accent: #f59e0b;
-  --accent-foreground: #1c110c;
-  --destructive: #f87171;
-  --border: #4a2f22;
-  --input: #4a2f22;
-  --ring: #ef4444;
-
-  --chart-1: #ef4444;
-  --chart-2: #f59e0b;
-  --chart-3: #fcd34d;
-  --chart-4: #2dd4bf;
-  --chart-5: #84cc16;
-
-  --sidebar: #241610;
-  --sidebar-foreground: #fbeee0;
-  --sidebar-primary: #ef4444;
-  --sidebar-primary-foreground: #1c110c;
-  --sidebar-accent: #3a2418;
-  --sidebar-accent-foreground: #fbeee0;
-  --sidebar-border: #4a2f22;
-  --sidebar-ring: #ef4444;
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Brand logo animation. Slow and subtle, and off for reduced-motion users. */
+@keyframes logo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logo-wave {
+  0%,
+  22%,
+  100% {
+    transform: translateY(0);
+  }
+  11% {
+    transform: translateY(-3px);
+  }
+}
+
+.logo-icon {
+  animation: logo-spin 18s linear infinite;
+}
+
+.logo-letter {
+  display: inline-block;
+  animation: logo-wave 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-icon,
+  .logo-letter {
+    animation: none;
   }
 }
