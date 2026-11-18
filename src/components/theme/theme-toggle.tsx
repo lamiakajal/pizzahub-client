@@ -3,8 +3,9 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   function toggle() {
     const root = document.documentElement;
     const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -21,6 +22,7 @@ export function ThemeToggle() {
       type="button"
       variant="ghost"
       size="icon"
+      className={cn(className)}
       onClick={toggle}
       aria-label="Toggle light and dark theme"
     >
