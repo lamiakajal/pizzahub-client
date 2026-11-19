@@ -37,16 +37,16 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --background: #141211;
-  --surface: #1f1b19;
-  --surface-2: #292321;
-  --border: #302a27;
-  --text: #f8f1e9;
-  --muted: #a8a29e;
+  --background: #0b0b0d;
+  --surface: #141416;
+  --surface-2: #1c1c1f;
+  --border: #27272a;
+  --text: #fafafa;
+  --muted: #a1a1aa;
   --primary: #ef5350;
-  --on-primary: #141211;
+  --on-primary: #0b0b0d;
   --accent: #ff9f1c;
-  --on-accent: #141211;
+  --on-accent: #0b0b0d;
   --success: #4caf50;
   --warning: #f59e0b;
   --error: #ef4444;
