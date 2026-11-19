@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  images: {
+    // Menu item photos are hosted on ImgBB.
+    remotePatterns: [
+      { protocol: "https", hostname: "i.ibb.co" },
+      { protocol: "https", hostname: "i.ibb.co.com" },
+    ],
+  },
 };
 
 export default nextConfig;
