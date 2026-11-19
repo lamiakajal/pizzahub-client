@@ -61,12 +61,12 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>House 12, Road 5, Dhanmondi, Dhaka</span>
+              <span>123 Culinary Ave, Suite 100</span>
             </li>
             <li className="flex items-center gap-2">
               <Phone className="size-4 shrink-0 text-primary" />
-              <a href="tel:+8801700000000" className="hover:text-primary">
-                +880 1700-000000
+              <a href="tel:+15550000000" className="hover:text-primary">
+                +1 (555) 000-0000
               </a>
             </li>
             <li className="flex items-center gap-2">
