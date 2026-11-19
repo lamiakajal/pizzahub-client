@@ -120,7 +120,7 @@ export function ProfileForm({ role, initial }: ProfileFormProps) {
               id="businessName"
               name="businessName"
               defaultValue={initial.businessName ?? ""}
-              placeholder="e.g. Slice of Dhaka"
+              placeholder="e.g. Your Restaurant Name"
               aria-invalid={Boolean(errors.businessName)}
             />
             <FieldError message={errors.businessName} />
