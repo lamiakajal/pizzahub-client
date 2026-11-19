@@ -1,3 +1,5 @@
+import { getPasswordProblem } from "@/lib/password-rules";
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -16,10 +18,7 @@ export function validateEmail(email: string): string | null {
 }
 
 export function validatePassword(password: string): string | null {
-  if (password.length < 6) return "Password must be at least 6 characters";
-  if (!/[a-z]/.test(password)) return "Password needs at least one lowercase letter";
-  if (!/[A-Z]/.test(password)) return "Password needs at least one uppercase letter";
-  return null;
+  return getPasswordProblem(password);
 }
 
 export function validateImageFile(file: File): string | null {
