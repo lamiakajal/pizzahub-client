@@ -6,12 +6,12 @@ export type HeroSlide = {
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    src: "/images/hero/hero-1.jpg",
-    alt: "Pepperoni pizza with a slice lifting away on stretchy cheese",
-  },
-  {
     src: "/images/hero/hero-2.jpg",
     alt: "Wood-fired pizza with melted mozzarella pouring over the top",
+  },
+  {
+    src: "/images/hero/hero-1.jpg",
+    alt: "Pepperoni pizza with a slice lifting away on stretchy cheese",
   },
   {
     src: "/images/hero/hero-3.jpg",

@@ -9,7 +9,7 @@ import { HERO_SLIDES } from "@/components/home/hero-slides";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 3000;
 const COUNT = HERO_SLIDES.length;
 
 // The hero always sits on a dark photo, so its text is white in both themes.
@@ -61,7 +61,7 @@ export function Hero() {
               opacity: index === active ? 1 : 0,
               scale: reduceMotion || index === active ? 1 : 1.05,
             }}
-            transition={{ duration: reduceMotion ? 0 : 1, ease: "easeInOut" }}
+            transition={{ duration: reduceMotion ? 0 : 0.45, ease: "easeInOut" }}
           >
             <Image
               src={slide.src}
