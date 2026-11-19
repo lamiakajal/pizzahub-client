@@ -3,10 +3,19 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
 import { APIError, createAuthMiddleware, getOAuthState } from "better-auth/api";
 import { jwt } from "better-auth/plugins";
+import { getPasswordProblem } from "./password-rules";
+import { getProfileProblem } from "./profile-rules";
 import { db } from "./mongodb";
 
 // Only these roles can be chosen at sign up. Admin is assigned by a seed script.
 const SIGNUP_ROLES = ["vendor", "customer"];
+
+// Requests that carry a new password, and the body field that holds it.
+const PASSWORD_FIELDS: Record<string, string> = {
+  "/sign-up/email": "password",
+  "/change-password": "newPassword",
+  "/reset-password": "newPassword",
+};
 
 // Fields a user must never change on their own account.
 const PROTECTED_FIELDS = [
@@ -40,25 +49,27 @@ export const auth = betterAuth({
       },
       isBlocked: { type: "boolean", defaultValue: false, input: false },
       businessName: { type: "string", required: false },
+      phone: { type: "string", required: false },
+      // Stored as YYYY-MM-DD.
+      dateOfBirth: { type: "string", required: false },
       subscriptionPlan: { type: "string", defaultValue: "free", input: false },
       subscriptionExpiresAt: { type: "date", required: false, input: false },
     },
   },
   hooks: {
-    // Enforce password rules on the server too, not only in the form.
+    // The same rules as the forms, enforced on the server so they cannot be skipped.
     before: createAuthMiddleware(async (ctx) => {
-      if (ctx.path !== "/sign-up/email") return;
+      const passwordField = PASSWORD_FIELDS[ctx.path];
 
-      const password = ctx.body?.password;
-      if (
-        typeof password !== "string" ||
-        !/[a-z]/.test(password) ||
-        !/[A-Z]/.test(password)
-      ) {
-        throw new APIError("BAD_REQUEST", {
-          message:
-            "Password must include at least one uppercase and one lowercase letter",
-        });
+      if (passwordField) {
+        const problem = getPasswordProblem(ctx.body?.[passwordField]);
+        if (problem) throw new APIError("BAD_REQUEST", { message: problem });
+        return;
+      }
+
+      if (ctx.path === "/update-user") {
+        const problem = getProfileProblem(ctx.body);
+        if (problem) throw new APIError("BAD_REQUEST", { message: problem });
       }
     }),
   },
