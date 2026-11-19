@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Tailwind is compiled through the Turbopack loader in this project.
   turbopack: {
+    // Without this, a stray lockfile in a parent folder makes Next pick the wrong root.
+    root: process.cwd(),
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],

@@ -235,7 +235,7 @@ export function Navbar() {
 
       {/* The bar floats above the page, so other pages need room below it.
           The home page hero runs underneath it instead. */}
-      {!isHome && <div className="h-22" aria-hidden="true" />}
+      {!isHome && <div className="h-28 sm:h-32" aria-hidden="true" />}
     </>
   );
 }

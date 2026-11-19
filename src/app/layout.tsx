@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Script from "next/script";
+import { Preloader } from "@/components/brand/preloader";
 import { ThemeScript } from "@/components/theme/theme-script";
 import { Toaster } from "@/components/ui/sonner";
+import { PRELOADER_KEY } from "@/lib/preloader";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -9,6 +12,9 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
+
+// Marks repeat visits in this browser session so the intro can be hidden before first paint.
+const preloaderCheck = `try{if(sessionStorage.getItem("${PRELOADER_KEY}")==="1")document.documentElement.setAttribute("data-preloader","skip")}catch(e){}`;
 
 export const metadata: Metadata = {
   title: {
@@ -38,8 +44,17 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col font-sans"
       >
+        <Script
+          id="pizzahub-preloader-check"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: preloaderCheck }}
+        />
+        <Preloader />
+        <noscript>
+          <style>{".preloader{display:none}"}</style>
+        </noscript>
         {children}
-        <Toaster richColors position="top-right" />
+        <Toaster position="top-right" />
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Crown, Eye, Pause, Pencil, Play, Plus, Trash2, TriangleAlert, UtensilsCrossed } from "lucide-react";
 import { toast } from "sonner";
 import { Pager } from "@/components/dashboard/pager";
+import { PizzaLoader } from "@/components/brand/pizza-loader";
 import { StatusBadge } from "@/components/menu/status-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -141,11 +142,7 @@ export function VendorMenuItems() {
       )}
 
       {loading ? (
-        <div className="space-y-3" aria-busy="true">
-          {Array.from({ length: 4 }, (_, index) => (
-            <div key={index} className="h-28 animate-pulse rounded-xl bg-muted" />
-          ))}
-        </div>
+        <PizzaLoader label="Loading your menu items" className="py-20" />
       ) : result?.error ? (
         <Card>
           <CardContent className="flex flex-col items-center gap-3 py-14 text-center">
