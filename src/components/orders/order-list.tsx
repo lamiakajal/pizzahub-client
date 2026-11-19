@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ShoppingBag, TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
 import { Pager } from "@/components/dashboard/pager";
+import { PizzaLoader } from "@/components/brand/pizza-loader";
 import { OrderCard } from "@/components/orders/order-card";
 import { StatusFilter } from "@/components/orders/status-filter";
 import { Button } from "@/components/ui/button";
@@ -65,11 +66,7 @@ export function OrderList({ variant }: { variant: "customer" | "vendor" }) {
       />
 
       {!ready ? (
-        <div className="space-y-3" aria-busy="true">
-          {Array.from({ length: 3 }, (_, index) => (
-            <div key={index} className="h-36 animate-pulse rounded-xl bg-muted" />
-          ))}
-        </div>
+        <PizzaLoader label="Loading your orders" className="py-20" />
       ) : error ? (
         <Card>
           <CardContent className="flex flex-col items-center gap-3 py-14 text-center">
