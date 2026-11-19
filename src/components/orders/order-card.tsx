@@ -28,6 +28,8 @@ export function OrderCard({ order, variant, busy, onCancel, onAccept, onReject }
 
   const item = order.item;
   const pending = order.status === "pending";
+  // A confirmation only makes sense while the order is still pending.
+  const activeConfirm = pending ? confirming : null;
   const restaurant = order.vendor?.businessName || order.vendor?.name || "Restaurant";
 
   return (
@@ -77,17 +79,22 @@ export function OrderCard({ order, variant, busy, onCancel, onAccept, onReject }
           </div>
 
           <div className="flex flex-wrap items-start gap-2 sm:flex-col sm:items-stretch">
-            {confirming ? (
+            {activeConfirm ? (
               <>
                 <p className="text-sm font-medium">
-                  {confirming === "cancel" ? "Cancel this order?" : "Reject this order?"}
+                  {activeConfirm === "cancel" ? "Cancel this order?" : "Reject this order?"}
                 </p>
                 <div className="flex gap-2">
                   <Button
                     size="sm"
                     variant="destructive"
                     disabled={busy}
-                    onClick={() => (confirming === "cancel" ? onCancel?.(order) : onReject?.(order))}
+                    onClick={() => {
+                      // Close the prompt right away, then run the action.
+                      setConfirming(null);
+                      if (activeConfirm === "cancel") onCancel?.(order);
+                      else onReject?.(order);
+                    }}
                   >
                     Yes
                   </Button>
