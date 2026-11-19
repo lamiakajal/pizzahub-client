@@ -37,16 +37,16 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --background: #141211;
-  --surface: #1f1b19;
-  --surface-2: #292321;
-  --border: #302a27;
-  --text: #f8f1e9;
-  --muted: #a8a29e;
+  --background: #0b0b0d;
+  --surface: #141416;
+  --surface-2: #1c1c1f;
+  --border: #27272a;
+  --text: #fafafa;
+  --muted: #a1a1aa;
   --primary: #ef5350;
-  --on-primary: #141211;
+  --on-primary: #0b0b0d;
   --accent: #ff9f1c;
-  --on-accent: #141211;
+  --on-accent: #0b0b0d;
   --success: #4caf50;
   --warning: #f59e0b;
   --error: #ef4444;
@@ -186,5 +186,88 @@
   .logo-icon,
   .logo-letter {
     animation: none;
+  }
+}
+
+/* Branded loader: a pizza slice that bobs and tilts. */
+@keyframes pizza-loader-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(8deg);
+  }
+}
+
+@keyframes pizza-loader-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pizza-loader {
+  animation: pizza-loader-bob 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pizza-loader {
+    animation: pizza-loader-pulse 1.4s ease-in-out infinite;
+  }
+}
+
+/* One-time intro. A small script marks repeat visits so it never flashes again. */
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.preloader {
+  transition: opacity 0.35s ease;
+  /* If scripts fail, visitors are never stuck behind the intro. */
+  animation: preloader-failsafe 0.3s ease 5s forwards;
+}
+
+.preloader[data-leaving="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-preloader="skip"] .preloader {
+  display: none;
+}
+
+/* Thin scrollbar that follows the palette. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 999px;
+  border: 2px solid var(--border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Firefox has no hover styling for the thumb, so it gets the thin version only. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted) var(--border);
   }
 }

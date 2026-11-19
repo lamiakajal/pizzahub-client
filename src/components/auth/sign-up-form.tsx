@@ -7,6 +7,7 @@ import { Eye, EyeOff, LoaderCircle, ShoppingBag, Store } from "lucide-react";
 import { toast } from "sonner";
 import { FieldError, OrDivider } from "@/components/auth/form-field";
 import { GoogleButton } from "@/components/auth/google-button";
+import { PasswordFeedback } from "@/components/auth/password-feedback";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,6 +38,7 @@ export function SignUpForm() {
   const router = useRouter();
   const [role, setRole] = useState<SignupRole>("customer");
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -164,8 +166,10 @@ export function SignUpForm() {
               name="password"
               type={showPassword ? "text" : "password"}
               autoComplete="new-password"
-              placeholder="At least 6 characters"
+              placeholder="Create a strong password"
               className="pr-10"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
               aria-invalid={Boolean(errors.password)}
             />
             <button
@@ -177,9 +181,7 @@ export function SignUpForm() {
               {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
             </button>
           </div>
-          <p className="text-xs text-muted-foreground">
-            Use 6 or more characters with one uppercase and one lowercase letter.
-          </p>
+          <PasswordFeedback password={password} />
           <FieldError message={errors.password} />
         </div>
 
