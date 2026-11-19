@@ -99,7 +99,13 @@ export default async function MenuItemPage({ params }: { params: Promise<{ id: s
             </CardContent>
           </Card>
 
-          <OrderPanel role={role} isOwnItem={isOwnItem} />
+          <OrderPanel
+            role={role}
+            isOwnItem={isOwnItem}
+            itemId={item._id}
+            itemName={item.itemName}
+            price={item.price}
+          />
         </div>
       </div>
     </section>
