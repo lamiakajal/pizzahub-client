@@ -99,5 +99,13 @@ export const auth = betterAuth({
     },
   },
   // nextCookies must stay the last plugin.
+  session: {
+    // Keep the session in an HTTP-only cookie so reloads and getSession() stay fast.
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      maxAge: 5 * 24 * 60 * 60,
+    },
+  },
   plugins: [jwt(), nextCookies()],
 });
