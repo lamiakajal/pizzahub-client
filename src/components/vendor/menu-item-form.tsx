@@ -250,7 +250,7 @@ export function MenuItemForm({ mode, itemId, initial }: MenuItemFormProps) {
               id="location"
               name="location"
               defaultValue={initial?.location}
-              placeholder="e.g. Dhanmondi, Dhaka"
+              placeholder="e.g. Area / City"
               aria-invalid={Boolean(errors.location)}
             />
             <FieldError message={errors.location} />
