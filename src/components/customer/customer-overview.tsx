@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ClipboardList, Clock, ShoppingBag, TriangleAlert, Check, X } from "lucide-react";
+import { OrdersByMonthChart, OrdersByStatusChart, type OrdersByMonth, type OrdersByStatus } from "@/components/charts/overview-charts";
 import { StatCard, StatCardSkeleton } from "@/components/dashboard/stat-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,6 +14,8 @@ type CustomerStats = {
   accepted: number;
   rejected: number;
   cancelled: number;
+  ordersByStatus: OrdersByStatus;
+  ordersByMonth: OrdersByMonth;
 };
 
 export function CustomerOverview() {
@@ -43,6 +46,11 @@ export function CustomerOverview() {
         <StatCard label="Pending orders" value={data.pending} icon={Clock} hint="Waiting for the restaurant" />
         <StatCard label="Accepted orders" value={data.accepted} icon={Check} />
         <StatCard label="Rejected orders" value={data.rejected} icon={X} />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <OrdersByStatusChart data={data.ordersByStatus} />
+        <OrdersByMonthChart data={data.ordersByMonth} />
       </div>
 
       <Card>
