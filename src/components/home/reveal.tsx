@@ -32,8 +32,3 @@ export function Reveal({
     </motion.div>
   );
 }
-
-// Small stagger so a row of cards does not appear all at once.
-export function staggerDelay(index: number, columns = 3) {
-  return (index % columns) * 0.08;
-}
