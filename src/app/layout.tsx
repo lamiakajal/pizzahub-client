@@ -34,6 +34,7 @@ export default function RootLayout({
     // data-theme is set by the inline script before paint, so hydration may differ.
     <html
       lang="en"
+      data-theme="dark"
       suppressHydrationWarning
       className={`${poppins.variable} h-full antialiased`}
     >
