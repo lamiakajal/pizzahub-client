@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { CalendarDays, Check, ChevronDown, Store, User, X } from "lucide-react";
+import { OrderTimeline } from "@/components/orders/order-timeline";
 import { OrderStatusBadge } from "@/components/orders/order-status-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -153,6 +154,14 @@ export function OrderCard({ order, variant, busy, onCancel, onAccept, onReject }
                 Order reference
               </dt>
               <dd className="mt-1 font-mono text-xs">{order._id}</dd>
+            </div>
+            <div className="sm:col-span-2">
+              <dt className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Status timeline
+              </dt>
+              <dd>
+                <OrderTimeline order={order} variant={variant} />
+              </dd>
             </div>
           </dl>
         )}
