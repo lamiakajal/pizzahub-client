@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Home, UtensilsCrossed } from "lucide-react";
+import { House, UtensilsCrossed } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 
@@ -26,7 +26,7 @@ export default function NotFound() {
       <div className="flex flex-col gap-3 sm:flex-row">
         <Button asChild size="lg">
           <Link href="/">
-            <Home /> Back to home
+            <House /> Back to home
           </Link>
         </Button>
         <Button asChild size="lg" variant="outline">

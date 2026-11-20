@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, RotateCcw, TriangleAlert } from "lucide-react";
+import { House, RotateCcw, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function GlobalError({
@@ -30,7 +30,7 @@ export default function GlobalError({
         </Button>
         <Button asChild size="lg" variant="outline">
           <Link href="/">
-            <Home /> Back to home
+            <House /> Back to home
           </Link>
         </Button>
       </div>
