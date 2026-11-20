@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Store } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { FadeImage } from "@/components/ui/fade-image";
 import { formatPrice, vendorDisplayName, type MenuItem } from "@/lib/menu";
 
 // Every card has the same height and image size, so grids stay tidy.
@@ -12,7 +12,7 @@ export function MenuCard({ item, priority = false }: { item: MenuItem; priority?
     <Card className="h-full gap-0 overflow-hidden py-0">
       <div className="relative aspect-4/3 w-full bg-muted">
         {item.images[0] && (
-          <Image
+          <FadeImage
             src={item.images[0]}
             alt={item.itemName}
             fill
