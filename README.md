@@ -175,3 +175,12 @@ src/components        UI, layout, menu, home, admin and vendor components
 src/lib               Auth, API helpers, types and utilities
 scripts               One-off scripts such as the admin seed
 ```
+
+## Deploying to Vercel
+
+1. Deploy the server first and copy its URL.
+2. Import the `pizzahub-client` repository in Vercel (Framework Preset: Next.js).
+3. Add these environment variables before the first build: `MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (the live client URL), `NEXT_PUBLIC_API_URL` (the live server URL), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `IMGBB_API_KEY`, `STRIPE_SECRET_KEY`.
+4. In the Google Cloud console, add the live client URL as an authorized JavaScript origin and `https://<client-url>/api/auth/callback/google` as an authorized redirect URI.
+5. Set `CLIENT_URL` and `BETTER_AUTH_URL` on the server to the live client URL, then redeploy the server.
+6. Open the live site, reload a private route such as `/dashboard` while signed in, and check that you stay signed in.
