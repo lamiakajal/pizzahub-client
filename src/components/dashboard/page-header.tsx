@@ -7,7 +7,7 @@ export function PageHeader({
 }) {
   return (
     <div className="mb-6 space-y-1">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{title}</h1>
       {description && (
         <p className="text-sm text-muted-foreground">{description}</p>
       )}
