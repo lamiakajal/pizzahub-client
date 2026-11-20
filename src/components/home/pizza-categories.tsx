@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Beef, ChefHat, CupSoda, Leaf, Pizza, Sandwich, type LucideIcon } from "lucide-react";
-import { Reveal, staggerDelay } from "@/components/home/reveal";
+import { Reveal } from "@/components/home/reveal";
+import { staggerDelay } from "@/components/home/stagger";
 import { SectionHeading } from "@/components/home/section-heading";
 import { Card } from "@/components/ui/card";
 import { MENU_CATEGORIES } from "@/lib/menu";

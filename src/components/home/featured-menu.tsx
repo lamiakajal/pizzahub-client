@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, TriangleAlert, UtensilsCrossed } from "lucide-react";
-import { Reveal, staggerDelay } from "@/components/home/reveal";
+import { Reveal } from "@/components/home/reveal";
+import { staggerDelay } from "@/components/home/stagger";
 import { SectionHeading } from "@/components/home/section-heading";
 import { MenuCard } from "@/components/menu/menu-card";
 import { Button } from "@/components/ui/button";

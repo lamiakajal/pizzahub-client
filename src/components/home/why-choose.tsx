@@ -1,5 +1,6 @@
 import { Bike, Flame, MousePointerClick, ShieldCheck, Store, Tag, type LucideIcon } from "lucide-react";
-import { Reveal, staggerDelay } from "@/components/home/reveal";
+import { Reveal } from "@/components/home/reveal";
+import { staggerDelay } from "@/components/home/stagger";
 import { SectionHeading } from "@/components/home/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
 
