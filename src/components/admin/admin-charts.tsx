@@ -13,18 +13,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  AXIS_TICK,
+  ChartCard,
+  EmptyChart,
+  TOOLTIP_STYLE,
+  summarize,
+} from "@/components/charts/chart-parts";
 import { formatMoney, titleCase, type AdminOverviewData } from "@/lib/admin";
-
-const AXIS_TICK = { fill: "var(--muted)", fontSize: 12 };
-
-const TOOLTIP_STYLE = {
-  backgroundColor: "var(--surface)",
-  border: "1px solid var(--border)",
-  borderRadius: 12,
-  color: "var(--text)",
-  fontSize: 13,
-};
 
 const ROLE_COLORS: Record<string, string> = {
   customer: "var(--chart-1)",
@@ -39,28 +35,6 @@ const STATUS_COLORS: Record<string, string> = {
   inactive: "var(--chart-5)",
 };
 
-function ChartCard({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Card>
-      <CardContent className="space-y-4">
-        <div className="space-y-1">
-          <h2 className="text-lg font-semibold">{title}</h2>
-          <p className="text-sm text-muted-foreground">{description}</p>
-        </div>
-        <div className="h-64 w-full">{children}</div>
-      </CardContent>
-    </Card>
-  );
-}
-
 export function AdminCharts({ data }: { data: AdminOverviewData }) {
   const roles = data.usersByRole.map((entry) => ({ ...entry, label: titleCase(entry.role) }));
   const statuses = data.menuItemsByStatus.map((entry) => ({
@@ -72,7 +46,11 @@ export function AdminCharts({ data }: { data: AdminOverviewData }) {
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
-      <ChartCard title="Users by role" description="How accounts are split between roles.">
+      <ChartCard
+        title="Users by role"
+        description="How accounts are split between roles."
+        summary={`Users by role. ${summarize(roles.map((entry) => ({ label: entry.label, value: entry.count })))}`}
+      >
         {hasUsers ? (
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -98,7 +76,11 @@ export function AdminCharts({ data }: { data: AdminOverviewData }) {
         )}
       </ChartCard>
 
-      <ChartCard title="Menu items by status" description="Where every submitted item stands.">
+      <ChartCard
+        title="Menu items by status"
+        description="Where every submitted item stands."
+        summary={`Menu items by status. ${summarize(statuses.map((entry) => ({ label: entry.label, value: entry.count })))}`}
+      >
         {hasItems ? (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={statuses} margin={{ top: 8, right: 8, bottom: 0, left: -20 }}>
@@ -122,6 +104,7 @@ export function AdminCharts({ data }: { data: AdminOverviewData }) {
         <ChartCard
           title="Transactions per month"
           description="Subscription payments over the last 6 months. Revenue counts paid ones only."
+          summary={`Transactions per month. ${summarize(data.transactionsByMonth.map((entry) => ({ label: entry.month, value: entry.count })))}`}
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data.transactionsByMonth} margin={{ top: 8, right: 8, bottom: 0, left: -20 }}>
@@ -141,14 +124,6 @@ export function AdminCharts({ data }: { data: AdminOverviewData }) {
           </ResponsiveContainer>
         </ChartCard>
       </div>
-    </div>
-  );
-}
-
-function EmptyChart() {
-  return (
-    <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-      Nothing to show yet.
     </div>
   );
 }
