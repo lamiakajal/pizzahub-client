@@ -16,6 +16,7 @@ export type Order = {
   deliveryAddress: string;
   message: string;
   createdAt: string;
+  updatedAt: string;
   item: {
     _id: string;
     itemName: string;
