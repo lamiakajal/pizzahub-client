@@ -15,6 +15,7 @@ export const client =
     maxPoolSize: 5,
     serverSelectionTimeoutMS: 10000,
     connectTimeoutMS: 10000,
+    family: 4,
   });
 
 globalForMongo._mongoClient = client;
