@@ -75,7 +75,7 @@ export default function RootLayout({
           <style>{".preloader{display:none}"}</style>
         </noscript>
         {children}
-        <Toaster position="top-right" />
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
