@@ -27,6 +27,7 @@
   --text: #292321;
   --muted: #78716c;
   --primary: #c62828;
+  --primary-text: #c62828;
   --on-primary: #ffffff;
   --accent: #f28c28;
   --on-accent: #1f1a18;
@@ -43,8 +44,11 @@
   --border: #27272a;
   --text: #fafafa;
   --muted: #a1a1aa;
-  --primary: #ef5350;
-  --on-primary: #0b0b0d;
+  /* Same brand red as light mode for fills, with white text on top. */
+  --primary: #c62828;
+  /* Red used as text needs a lighter shade of the same red to stay readable on charcoal. */
+  --primary-text: #e94b4b;
+  --on-primary: #ffffff;
   --accent: #ff9f1c;
   --on-accent: #0b0b0d;
   --success: #4caf50;
@@ -143,6 +147,12 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Red text (prices, links, active items) follows --primary-text. Fills keep --primary. */
+.text-primary,
+.hover\:text-primary:hover {
+  color: var(--primary-text);
 }
 
 @layer base {

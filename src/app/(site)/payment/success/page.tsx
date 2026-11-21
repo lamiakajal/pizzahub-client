@@ -9,7 +9,36 @@ import { requireRole } from "@/lib/session";
 
 export const metadata: Metadata = { title: "Payment Successful" };
 
-function Problem({ title, message }: { title: string; message: string }) {
+// Explains why Stripe could not return the session. The technical detail is only
+// shown while developing, so visitors on the live site never see it.
+function describeStripeFailure(error: unknown) {
+  const failure = error as { type?: string; code?: string; message?: string };
+  const detail = `${failure.type ?? "Error"}: ${failure.message ?? "unknown error"}`;
+
+  if (failure.message?.includes("STRIPE_SECRET_KEY")) {
+    return { hint: "The Stripe secret key is missing from the client environment.", detail };
+  }
+  if (failure.type === "StripeAuthenticationError") {
+    return { hint: "The Stripe secret key on the client is not valid.", detail };
+  }
+  if (failure.code === "resource_missing") {
+    return {
+      hint: "Stripe has no such session for the client key. The client and the server must use secret keys from the same Stripe account and mode.",
+      detail,
+    };
+  }
+  return { hint: null, detail };
+}
+
+function Problem({
+  title,
+  message,
+  detail,
+}: {
+  title: string;
+  message: string;
+  detail?: string | null;
+}) {
   return (
     <section className="mx-auto flex w-full max-w-xl flex-1 px-4 pb-16 sm:px-6">
       <Card className="w-full">
@@ -17,6 +46,11 @@ function Problem({ title, message }: { title: string; message: string }) {
           <TriangleAlert className="size-10 text-error" />
           <h1 className="text-xl font-bold">{title}</h1>
           <p className="max-w-sm text-sm text-muted-foreground">{message}</p>
+          {detail && process.env.NODE_ENV !== "production" && (
+            <p className="max-w-sm rounded-md bg-surface-2 p-3 text-left text-xs break-words text-muted-foreground">
+              {detail}
+            </p>
+          )}
           <Button asChild variant="outline">
             <Link href="/dashboard/vendor/subscription">Back to subscription</Link>
           </Button>
@@ -43,11 +77,18 @@ export default async function PaymentSuccessPage({
   let session;
   try {
     session = await getStripe().checkout.sessions.retrieve(sessionId);
-  } catch {
+  } catch (error) {
+    const { hint, detail } = describeStripeFailure(error);
+    console.error("Could not retrieve the Stripe checkout session:", detail);
     return (
       <Problem
         title="We could not verify this payment"
-        message="Stripe did not recognize this checkout session. If you were charged, contact support."
+        message={
+          hint && process.env.NODE_ENV !== "production"
+            ? hint
+            : "Stripe did not recognize this checkout session. If you were charged, contact support."
+        }
+        detail={detail}
       />
     );
   }

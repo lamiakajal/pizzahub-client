@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    // ImgBB already serves optimized files, and proxying them through Next timed out.
+    // The browser loads them directly instead.
+    unoptimized: true,
     // Menu item photos are hosted on ImgBB.
     remotePatterns: [
       { protocol: "https", hostname: "i.ibb.co" },
