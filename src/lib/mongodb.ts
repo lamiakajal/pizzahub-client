@@ -9,19 +9,28 @@ if (!uri) {
 
 const globalForMongo = globalThis as unknown as { _mongoClient?: MongoClient };
 
-export const client =
-  globalForMongo._mongoClient ??
-  new MongoClient(uri, {
+function createClient() {
+  const mongoClient = new MongoClient(uri!, {
     maxPoolSize: 5,
     minPoolSize: 0,
-    maxIdleTimeMS: 5000,
+    maxIdleTimeMS: 60000,
     serverSelectionTimeoutMS: 15000,
     connectTimeoutMS: 15000,
     family: 4,
     tls: true,
   });
 
+  mongoClient.on("topologyClosed", () => {
+    if (globalForMongo._mongoClient === mongoClient) {
+      globalForMongo._mongoClient = undefined;
+    }
+  });
+
+  attachDatabasePool(mongoClient);
+  return mongoClient;
+}
+
+export const client = globalForMongo._mongoClient ?? createClient();
 globalForMongo._mongoClient = client;
-attachDatabasePool(client);
 
 export const db = client.db("pizzahub");
