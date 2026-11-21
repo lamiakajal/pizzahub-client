@@ -105,7 +105,16 @@ export function Footer() {
 
       <div className="border-t border-border">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center text-xs text-muted-foreground sm:px-6 lg:px-8">
-          © {new Date().getFullYear()} PizzaHub. All rights reserved.
+          © {new Date().getFullYear()} PizzaHub. All rights reserved. Built by{" "}
+          <a
+            href="https://lamiakajal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-foreground transition-colors hover:text-primary"
+          >
+            Lamia Kajal
+          </a>
+          .
         </p>
       </div>
     </footer>

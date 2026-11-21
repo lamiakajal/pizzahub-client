@@ -13,16 +13,37 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-// Marks repeat visits in this browser session so the intro can be hidden before first paint.
 const preloaderCheck = `try{if(sessionStorage.getItem("${PRELOADER_KEY}")==="1")document.documentElement.setAttribute("data-preloader","skip")}catch(e){}`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pizzahub-lamiakajal.vercel.app"),
   title: {
     default: "PizzaHub — Hot & Fresh Pizza Delivered",
     template: "%s | PizzaHub",
   },
   description:
-    "Discover local pizza shops, browse their menus and order your favorite pizza.",
+    "Discover local pizza shops, browse their menus, and order your favorite pizza. Built by Lamia Kajal.",
+  keywords: [
+    "PizzaHub",
+    "Lamia Kajal",
+    "Pizza Ordering Platform",
+    "Next.js",
+    "Full Stack",
+  ],
+  authors: [{ name: "Lamia Kajal", url: "https://lamiakajal.com" }],
+  creator: "Lamia Kajal",
+  openGraph: {
+    title: "PizzaHub — Hot & Fresh Pizza Delivered",
+    description:
+      "Discover local pizza shops, browse their menus, and order your favorite pizza. Built by Lamia Kajal.",
+    url: "https://pizzahub-lamiakajal.vercel.app",
+    siteName: "PizzaHub",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +52,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // data-theme is set by the inline script before paint, so hydration may differ.
     <html
       lang="en"
       data-theme="dark"
