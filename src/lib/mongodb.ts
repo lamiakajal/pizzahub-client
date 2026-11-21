@@ -13,9 +13,12 @@ export const client =
   globalForMongo._mongoClient ??
   new MongoClient(uri, {
     maxPoolSize: 5,
-    serverSelectionTimeoutMS: 10000,
-    connectTimeoutMS: 10000,
+    minPoolSize: 0,
+    maxIdleTimeMS: 10000,
+    serverSelectionTimeoutMS: 15000,
+    connectTimeoutMS: 15000,
     family: 4,
+    tls: true,
   });
 
 globalForMongo._mongoClient = client;
