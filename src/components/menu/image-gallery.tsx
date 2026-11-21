@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { FadeImage } from "@/components/ui/fade-image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +15,7 @@ export function ImageGallery({ images, alt }: { images: string[]; alt: string })
   return (
     <div className="space-y-3">
       <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-border bg-muted">
-        <Image
+        <FadeImage
           key={images[active]}
           src={images[active]}
           alt={alt}
@@ -40,7 +40,7 @@ export function ImageGallery({ images, alt }: { images: string[]; alt: string })
                 index === active ? "border-action" : "border-border opacity-80 hover:opacity-100"
               )}
             >
-              <Image src={src} alt="" fill sizes="150px" className="object-cover" />
+              <FadeImage src={src} alt="" fill sizes="150px" className="object-cover" />
             </button>
           ))}
         </div>

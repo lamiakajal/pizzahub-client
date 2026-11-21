@@ -13,12 +13,13 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot(): Theme {
-  return document.documentElement.getAttribute("data-theme") === "dark"
-    ? "dark"
-    : "light";
+  // Dark is the default, so only an explicit "light" counts as light.
+  return document.documentElement.getAttribute("data-theme") === "light"
+    ? "light"
+    : "dark";
 }
 
 // Reads the theme that is currently applied to <html>.
 export function useTheme(): Theme {
-  return useSyncExternalStore(subscribe, getSnapshot, () => "light");
+  return useSyncExternalStore(subscribe, getSnapshot, () => "dark");
 }

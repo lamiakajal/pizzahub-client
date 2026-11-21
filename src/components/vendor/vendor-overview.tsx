@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 import { Check, ClipboardList, Clock, Crown, TriangleAlert, UtensilsCrossed } from "lucide-react";
+import {
+  ItemsByStatusChart,
+  OrdersByMonthChart,
+  OrdersByStatusChart,
+  type ItemsByStatus,
+  type OrdersByMonth,
+  type OrdersByStatus,
+} from "@/components/charts/overview-charts";
 import { StatCard, StatCardSkeleton } from "@/components/dashboard/stat-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,6 +23,9 @@ type VendorStats = {
   acceptedOrders: number;
   plan: "free" | "premium";
   subscriptionExpiresAt: string | null;
+  ordersByStatus: OrdersByStatus;
+  ordersByMonth: OrdersByMonth;
+  itemsByStatus: ItemsByStatus;
 };
 
 export function VendorOverview() {
@@ -70,6 +81,14 @@ export function VendorOverview() {
           icon={Crown}
           hint={premium ? (renews ? `Active until ${renews}` : "Unlimited active items") : "Up to 3 active items"}
         />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <OrdersByStatusChart data={data.ordersByStatus} />
+        <OrdersByMonthChart data={data.ordersByMonth} title="Orders received per month" />
+        <div className="lg:col-span-2">
+          <ItemsByStatusChart data={data.itemsByStatus} />
+        </div>
       </div>
 
       <Card>
