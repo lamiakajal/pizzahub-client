@@ -10,6 +10,7 @@
     "seed:admin": "node --env-file=.env.local scripts/promote-admin.mjs"
   },
   "dependencies": {
+    "@vercel/functions": "^3.11.3",
     "better-auth": "^1.7.25",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
