@@ -17,8 +17,8 @@ type State =
 const POLL_MS = 2000;
 const MAX_ATTEMPTS = 10;
 
-// Premium switches on only when Stripe's webhook reaches our server, which can
-// take a few seconds after checkout. This asks the server until it is active.
+// Premium is activated by the Stripe webhook, which can lag a few seconds,
+// so this polls the server until the plan is active.
 export function PremiumStatus() {
   const [state, setState] = useState<State>({ phase: "waiting" });
 

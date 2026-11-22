@@ -4,18 +4,7 @@
 /* Dark mode is driven by data-theme="dark" on <html>. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/*
- * PizzaHub design system ("Blend C")
- *
- * Brand rules:
- * - Red (--primary) is brand identity only: logo, prices, links, badges, active nav item.
- * - Orange (--accent) is for actions only: Order Now, Upgrade, primary buttons.
- * - Text on orange is always dark (--on-accent), never white.
- * - Green (--success) is for success states and the veg badge.
- * - Cards use --surface, borders use --border. Radius 12-16px.
- *
- * Never hardcode hex values in components. Use the Tailwind tokens below.
- */
+/* Design tokens: red = brand, orange = actions, green = success. Use tokens, not hex values. */
 
 :root,
 [data-theme="light"] {
@@ -111,11 +100,7 @@
   --color-action: var(--accent);
   --color-on-action: var(--on-accent);
 
-  /*
-   * ShadCN uses "accent" and "muted" for neutral hover and subtle surfaces,
-   * so those two names map to neutral tokens here. The orange action color
-   * is exposed as "action" instead.
-   */
+  /* shadcn "accent" and "muted" stay neutral; the orange action color is "action". */
   --color-accent: var(--surface-2);
   --color-accent-foreground: var(--text);
   --color-muted: var(--muted-bg);

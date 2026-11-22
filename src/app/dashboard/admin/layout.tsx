@@ -1,6 +1,6 @@
 import { requireRole } from "@/lib/session";
 
-// Only a admin may open this area. Anyone else is sent to their own dashboard.
+// Only an admin may open this area. Anyone else is sent to their own dashboard.
 export default async function AdminLayout({
   children,
 }: {

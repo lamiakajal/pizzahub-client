@@ -4,9 +4,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { toRole, type Role } from "@/lib/roles";
 
-// One session lookup per request, shared by layouts and pages.
-// The cookie cache is skipped here on purpose: role and block status must be
-// read fresh from the database, or a blocked user could keep browsing pages.
+// One session lookup per request. The cookie cache is skipped so role and
+// block status always come fresh from the database.
 export const getSession = cache(async () =>
   auth.api.getSession({
     headers: await headers(),

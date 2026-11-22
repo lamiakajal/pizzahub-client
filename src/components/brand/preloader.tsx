@@ -7,9 +7,8 @@ import { PRELOADER_KEY } from "@/lib/preloader";
 const DURATION_MS = 1000;
 const FADE_MS = 350;
 
-// Full-screen intro with a 0 to 100 counter. It runs once per browser session.
-// The server renders it visible, and a small script in <head> marks repeat visits
-// so CSS can hide it before the first paint (no flash on reloads).
+// Full-screen intro that plays once per browser session.
+// A script in <head> marks repeat visits so CSS hides it before first paint.
 export function Preloader() {
   const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState<"running" | "leaving" | "done">("running");
