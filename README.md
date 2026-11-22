@@ -1,12 +1,35 @@
+<div align="center">
+
+![PizzaHub](docs/banner.jpg)
+
 # PizzaHub Client
 
-PizzaHub is a pizza ordering and delivery platform. Customers browse menus from local pizza shops and place orders, vendors (restaurants) manage their menu and orders and can upgrade to Premium, and admins review menu items, manage users and watch payments.
+**The web app of PizzaHub, a full-stack pizza ordering and delivery platform.**
 
-This repository is the web app (Next.js). The REST API lives in the server repository.
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-19-20232a?logo=react&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white) ![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?logo=tailwindcss&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47a248?logo=mongodb&logoColor=white) ![Better_Auth](https://img.shields.io/badge/Better_Auth-JWT-f97316?logo=auth0&logoColor=white) ![Stripe](https://img.shields.io/badge/Stripe-Premium-635bff?logo=stripe&logoColor=white)
 
-- Live site: `https://your-pizzahub-site.vercel.app` (placeholder, replace after deployment)
-- Client repo: https://github.com/lamiakajal/pizzahub-client
-- Server repo: https://github.com/lamiakajal/pizzahub-server
+</div>
+
+Customers browse menus from local pizza shops and place orders. Vendors (restaurants) manage their menu and orders and can upgrade to Premium. Admins review menu items, manage users and watch payments.
+
+This repository is the Next.js web app. The REST API lives in the [server repository](https://github.com/lamiakajal/pizzahub-server).
+
+| | |
+| --- | --- |
+| Live website | https://pizzahub-lamiakajal.vercel.app |
+| Live server (API) | https://pizzahub-server-lamiakajal.vercel.app |
+| Client repository | https://github.com/lamiakajal/pizzahub-client |
+| Server repository | https://github.com/lamiakajal/pizzahub-server |
+
+## Demo admin account
+
+Use this account to explore the admin dashboard on the live site:
+
+| Email | Password |
+| --- | --- |
+| `lamiakajal@pizzahub.com` | `LamiaKajal@123` |
+
+This is a demo account on a demo database. Do not reuse this password anywhere else.
 
 ## Features
 
@@ -38,7 +61,7 @@ This repository is the web app (Next.js). The REST API lives in the server repos
 - Next.js 16 (App Router), React 19, TypeScript
 - Tailwind CSS 4, shadcn/ui (`radix-ui`), `lucide-react`, `class-variance-authority`, `clsx`, `tailwind-merge`, `tw-animate-css`
 - Better Auth (MongoDB adapter, Google OAuth, JWT plugin)
-- `mongodb` driver (used by Better Auth and the admin seed script)
+- `mongodb` driver (used by Better Auth and the admin seed script) with `@vercel/functions` for connection pooling on Vercel
 - `motion` (Framer Motion) for animations, `sonner` for toasts
 - `recharts` for the admin charts
 - `stripe` for the Premium payment success page
@@ -72,7 +95,7 @@ To test locally, forward events with the Stripe CLI (`stripe listen --forward-to
 
 ## Getting started
 
-Requirements: Node.js 20 or newer, a MongoDB Atlas database and the running PizzaHub server.
+Requirements: Node.js 22, a MongoDB Atlas database and the running PizzaHub server.
 
 ```bash
 git clone https://github.com/lamiakajal/pizzahub-client.git
@@ -154,17 +177,13 @@ Server components use `requireUser` and `requireRole` from `src/lib/session.ts`,
 
 ## Deployment
 
-Fill these in after deploying (placeholders for now):
-
 | Item | Value |
 | --- | --- |
-| Live site | `https://your-pizzahub-site.vercel.app` |
-| Live API | `https://your-pizzahub-api.vercel.app` |
-| Admin test account | email: `<admin email>` / password: `<admin password>` |
-| Vendor test account | email: `<vendor email>` / password: `<vendor password>` |
-| Customer test account | email: `<customer email>` / password: `<customer password>` |
+| Live website | https://pizzahub-lamiakajal.vercel.app |
+| Live server (API) | https://pizzahub-server-lamiakajal.vercel.app |
+| Demo admin account | email: `lamiakajal@pizzahub.com` / password: `LamiaKajal@123` |
 
-Production checklist: set every environment variable on both apps, set `CLIENT_URL` on the server to the live site, add the live Google OAuth redirect URI, and register the live webhook URL (`<live API>/api/stripe/webhook`) in Stripe.
+Production checklist: set every environment variable on both apps, set `CLIENT_URL` on the server to the live website, add the live Google OAuth redirect URI, and register the live webhook URL (`https://pizzahub-server-lamiakajal.vercel.app/api/stripe/webhook`) in Stripe.
 
 ## Project structure
 
@@ -180,7 +199,7 @@ scripts               One-off scripts such as the admin seed
 
 1. Deploy the server first and copy its URL.
 2. Import the `pizzahub-client` repository in Vercel (Framework Preset: Next.js).
-3. Add these environment variables before the first build: `MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (the live client URL), `NEXT_PUBLIC_API_URL` (the live server URL), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `IMGBB_API_KEY`, `STRIPE_SECRET_KEY`.
+3. Set the Node.js version to 22.x (it is pinned in `package.json`) and add these environment variables before the first build: `MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (the live client URL), `NEXT_PUBLIC_API_URL` (the live server URL), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `IMGBB_API_KEY`, `STRIPE_SECRET_KEY`.
 4. In the Google Cloud console, add the live client URL as an authorized JavaScript origin and `https://<client-url>/api/auth/callback/google` as an authorized redirect URI.
 5. Set `CLIENT_URL` and `BETTER_AUTH_URL` on the server to the live client URL, then redeploy the server.
 6. Open the live site, reload a private route such as `/dashboard` while signed in, and check that you stay signed in.
